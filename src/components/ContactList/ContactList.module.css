@@ -1,0 +1,24 @@
+.list {
+    padding: 24px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    scrollbar-width: thin;
+    margin: 0 auto;
+  }
+  .noContacts {
+    padding-top: 36px;
+    font-size: 20px;
+    font-weight: 400;
+    padding-left: 5px;
+  }
+  .list li {
+    /* width: calc((100% - 10px) / 4); */
+    max-width: 400px;
+    padding: 10px 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-wrap: break-word;
+  }
