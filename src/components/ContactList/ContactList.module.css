@@ -1,24 +1,19 @@
 .list {
-    padding: 24px;
+    /* padding: 24px;
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     scrollbar-width: thin;
-    margin: 0 auto;
-  }
-  .noContacts {
-    padding-top: 36px;
-    font-size: 20px;
-    font-weight: 400;
-    padding-left: 5px;
-  }
-  .list li {
-    /* width: calc((100% - 10px) / 4); */
-    max-width: 400px;
-    padding: 10px 15px;
+    margin: 0 auto; */
+    list-style: none;
+    padding-left: 0;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     gap: 10px;
-    overflow-wrap: break-word;
+  }
+  .list-item {
+    width: 50%;
+    border: 1px solid #000000;
+    border-radius: 5px;
   }

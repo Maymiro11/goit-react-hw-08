@@ -6,8 +6,8 @@ import { selectNameFilter } from '../../redux/auth/selectors';
 
 const SearchBox = () => {
     const dispatch = useDispatch();
-  const value = useSelector(selectNameFilter);
-  const searchFieldId = useId();
+    const value = useSelector(selectNameFilter);
+    const searchFieldId = useId();
 
   const handleChange = (e) => {
     const newValue = e.target.value;

@@ -1,36 +1,27 @@
-import css from './Contact.module.css';
-import { FaUser } from 'react-icons/fa';
-import { FaPhone } from 'react-icons/fa';
-import { MdDeleteForever } from 'react-icons/md';
-import { useDispatch } from 'react-redux';
-import { deleteContact } from '../../redux/contacts/contactsOps';
+import { FaUser } from "react-icons/fa";
+import { BsFillTelephoneFill } from "react-icons/bs";
+import css from "./Contact.module.css";
+import { useDispatch } from "react-redux";
+import { deleteContact } from "../../redux/contacts/operations";
 
-const Contact = ({ contact: { id, name, number } }) => {
+export default function Contact({ contact: { name, number, id } }) {
   const dispatch = useDispatch();
 
   return (
-    <div className={css.contact}>
-      <div>
-        <div className={css.contactInfo}>
-          <FaUser className={css.contactIcon} />
-          <h2 className={css.name}>{name}</h2>
+    <div className={css.container}>
+      <div className={css.wrapper}>
+        <div className={css["wrapper-for-item"]}>
+          <FaUser></FaUser>
+          <p className={css.text}>{name}</p>
         </div>
-        <div className={css.contactInfo}>
-          <FaPhone className={css.contactIcon} />
-          <p className={css.phone}>{number}</p>
+        <div>
+          <BsFillTelephoneFill></BsFillTelephoneFill>
+          <p className={css.text}>{number}</p>
         </div>
       </div>
-      <button
-        className={css.button}
-        type="button"
-        onClick={() => {
-          dispatch(deleteContact(id));
-        }}
-      >
-        <MdDeleteForever className={css.icon} />
+      <button className={css.btn} onClick={() => dispatch(deleteContact(id))}>
+        Delete
       </button>
     </div>
   );
-};
-
-export default Contact;
+}

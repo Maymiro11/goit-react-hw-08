@@ -1,56 +1,84 @@
-import './App.css';
-import NotFoundPage from '../../pages/NotFoundPage';
-import Layout from '../Layout/Layout';
-import PrivateRout from '../PrivateRoute/PrivateRoute';
-import RestrictedRoute from '../RestrictedRoute/RestrictedRoute';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { refreshUser } from '../../redux/auth/operations';
-import { Route, Routes } from 'react-router-dom';
-import { lazy, Suspense } from 'react';
-import { selectIsRefreshing } from '../../redux/auth/selectors';
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { refreshUser } from "../../redux/auth/operations";
+import { selectIsRefreshing } from "../../redux/auth/selectors";
+import { Routes, Route } from "react-router-dom";
+import { lazy, Suspense } from "react";
+import Layout from "../Layout/Layout";
+import RestrictedRoute from "../RestrictedRoute/RestrictedRoute";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import { TailSpin } from "react-loader-spinner";
 
-const HomePage = lazy(() => import('../../pages/HomePage'));
-const Login = lazy(() => import('../../pages/Login'));
-const Registration = lazy(() => import('../../pages/Registration'));
-const Contacts = lazy(() => import('../../pages/Contacts'));
+const HomePage = lazy(() => import("../../pages/HomePage"));
+const RegisterPage = lazy(() => import("../../pages/Registration"));
+const LoginPage = lazy(() => import("../../pages/Login"));
+const ContactsPage = lazy(() => import("../../pages/Contacts"));
 
-function App() {
-  const dispatch = useDispatch();
+export default function App() {
   const isRefreshing = useSelector(selectIsRefreshing);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(refreshUser());
   }, [dispatch]);
 
   return (
-    <>
-      <Layout>
-        {
-        isRefreshing ?
-        <p>Loading...</p> :
-        <Suspense fallback={<div>Loading...</div>}>
+    <Layout>
+      {isRefreshing ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "flex-start",
+          }}
+        >
+          <TailSpin
+            visible={true}
+            height="80"
+            width="80"
+            color="#3f51b5"
+            ariaLabel="tail-spin-loading"
+            radius="1"
+          />
+        </div>
+      ) : (
+        <Suspense
+          fallback={
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "flex-start",
+              }}
+            >
+              <TailSpin
+                visible={true}
+                height="80"
+                width="80"
+                color="#3f51b5"
+                ariaLabel="tail-spin-loading"
+                radius="1"
+              />
+            </div>
+          }
+        >
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route
-              path="/contacts"
-              element={<PrivateRout redirectTo="/login" component={<Contacts />} />}
+              path="/register"
+              element={<RestrictedRoute component={<RegisterPage />} />}
             />
             <Route
               path="/login"
-              element={<RestrictedRoute redirectTo="/contacts" component={<Login />} />}
+              element={<RestrictedRoute component={<LoginPage />} />}
             />
             <Route
-              path="/register"
-              element={<RestrictedRoute redirectTo="/contacts" component={<Registration />} />}
+              path="/contacts"
+              element={<PrivateRoute component={<ContactsPage />} />}
             />
-            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>
-        }
-      </Layout>
-    </>
+      )}
+    </Layout>
   );
 }
-
-export default App;

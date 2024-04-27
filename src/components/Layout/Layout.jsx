@@ -1,17 +1,12 @@
-import { useSelector } from 'react-redux';
-import { selectIsRefreshing } from '../../redux/auth/selectors';
+import css from "./Layout.module.css";
 import AppBar from '../AppBar/AppBar';
 
 const Layout = ({ children }) => {
-  const isRefreshing = useSelector(selectIsRefreshing);
-
-  return isRefreshing ? (
-    <b>User is refreshing, please wait...</b>
-  ) : (
-    <>
+  return (
+    <div className={css.container}>
       <AppBar />
       {children}
-    </>
+    </div>
   );
 };
 
