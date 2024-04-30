@@ -22,51 +22,53 @@ export default function ContactForm() {
     });
   
     return (
-      <Formik
-        initialValues={{
-          name: "",
-          number: "",
-        }}
-        onSubmit={(values, actions) => {
-          dispatch(addContact(values));
-          actions.resetForm();
-        }}
-        validationSchema={ValidationSchema}
-      >
-        <Form className={css.form}>
-          <div className={css.wrapper}>
-            <label htmlFor={nameFieldId}>Name</label>
-            <Field
-              className={css.input}
-              type="text"
-              name="name"
-              id={nameFieldId}
-            ></Field>
-            <ErrorMessage
-              className={css["error-text"]}
-              name="name"
-              component="p"
-            ></ErrorMessage>
-          </div>
-  
-          <div className={css.wrapper}>
-            <label htmlFor={numberFieldId}>Number</label>
-            <Field
-              className={css.input}
-              type="text "
-              name="number"
-              id={numberFieldId}
-            ></Field>
-            <ErrorMessage
-              className={css["error-text"]}
-              name="number"
-              component="p"
-            ></ErrorMessage>
-          </div>
-          <button type="submit" className={css.btn}>
-            Add contact
-          </button>
-        </Form>
-      </Formik>
+      <div className={css.centeredForm}>
+        <Formik
+          initialValues={{
+            name: "",
+            number: "",
+          }}
+          onSubmit={(values, actions) => {
+            dispatch(addContact(values));
+            actions.resetForm();
+          }}
+          validationSchema={ValidationSchema}
+        >
+          <Form className={css.form}>
+            <div className={css.wrapper}>
+              <label htmlFor={nameFieldId}>Name</label>
+              <Field
+                className={css.input}
+                type="text"
+                name="name"
+                id={nameFieldId}
+              ></Field>
+              <ErrorMessage
+                className={css["error-text"]}
+                name="name"
+                component="p"
+              ></ErrorMessage>
+            </div>
+    
+            <div className={css.wrapper}>
+              <label htmlFor={numberFieldId}>Number</label>
+              <Field
+                className={css.input}
+                type="text "
+                name="number"
+                id={numberFieldId}
+              ></Field>
+              <ErrorMessage
+                className={css["error-text"]}
+                name="number"
+                component="p"
+              ></ErrorMessage>
+            </div>
+            <button type="submit" className={css.btn}>
+              Add contact
+            </button>
+          </Form>
+        </Formik>
+      </div>
     );
   }
